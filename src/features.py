@@ -6,7 +6,7 @@ import networkx as nx
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
-from elliptic_fraud.data import EllipticGraph
+from src.data import EllipticGraph
 
 STRUCTURAL_FEATURE_NAMES = ("pagerank", "degree_centrality", "clustering_coefficient")
 
@@ -21,7 +21,7 @@ def build_structural_features(graph: EllipticGraph) -> np.ndarray:
     n_nodes = graph.num_nodes
     result = np.zeros((n_nodes, 3), dtype=np.float32)
     src, dst = graph.edge_index
-    same_step = graph.time_step[src].reset_index(drop=True).equals(graph.time_step[dst].reset_index(drop=True))
+    same_step = graph.time_step[src] == graph.time_step[dst]
     src = src[same_step]
     dst = dst[same_step]
 
