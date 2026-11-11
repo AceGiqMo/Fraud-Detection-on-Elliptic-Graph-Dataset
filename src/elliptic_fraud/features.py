@@ -21,7 +21,7 @@ def build_structural_features(graph: EllipticGraph) -> np.ndarray:
     n_nodes = graph.num_nodes
     result = np.zeros((n_nodes, 3), dtype=np.float32)
     src, dst = graph.edge_index
-    same_step = time_step[src].reset_index(drop=True).equals(time_step[dst].reset_index(drop=True))
+    same_step = graph.time_step[src].reset_index(drop=True).equals(graph.time_step[dst].reset_index(drop=True))
     src = src[same_step]
     dst = dst[same_step]
 
